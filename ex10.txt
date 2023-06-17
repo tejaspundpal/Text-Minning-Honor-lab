@@ -1,0 +1,52 @@
+Write a Python for spelling recommender function that uses nltk to find words similar to the misspelling.
+
+
+import nltk
+from nltk.corpus import words
+from nltk.metrics.distance import edit_distance
+
+def spelling_recommender(word, num_suggestions=3):
+    # Convert the input word to lowercase
+    word = word.lower()
+
+    try:
+        # Check if the word list is available
+        nltk.data.find('corpora/words')
+    except LookupError:
+        # Download the word list if not found
+        nltk.download('words')
+
+    # Get the list of English words from NLTK corpus
+    word_list = words.words()
+
+    # Calculate the edit distance between the input word and each word in the word list
+    distances = [(w, edit_distance(word, w)) for w in word_list]
+
+    # Sort the words based on their edit distance
+    sorted_words = sorted(distances, key=lambda x: x[1])
+
+    # Get the top N words with the lowest edit distance
+    suggestions = [w[0] for w in sorted_words[:num_suggestions]]
+
+    return suggestions
+
+# Test the function
+misspelling = "acces"
+suggestions = spelling_recommender(misspelling)
+
+print(f"Misspelling: {misspelling}")
+print("Suggestions:")
+for suggestion in suggestions:
+    print(suggestion)
+
+
+output:-
+
+Misspelling: acces
+Suggestions:
+access
+cases
+ace
+
+
+

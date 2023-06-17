@@ -1,0 +1,48 @@
+Write a Python program to predict if a message is spam or not. 
+
+
+
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+
+# Training data
+messages = [
+    ("Free money!!! Claim now.", "spam"),
+    ("Hey, how are you doing?", "not spam"),
+    ("Congratulations! You've won a prize.", "spam"),
+    ("Let's meet for coffee.", "not spam")
+]
+
+# Create the training dataset
+train_texts, train_labels = zip(*messages)
+
+# Vectorize the training texts
+vectorizer = CountVectorizer()
+
+try:
+    train_features = vectorizer.fit_transform(train_texts)
+
+    # Train the Naive Bayes classifier
+    classifier = MultinomialNB()
+    classifier.fit(train_features, train_labels)
+
+    # Test message to classify
+    test_message = "You've won a free vacation."
+
+    # Vectorize the test message
+    test_features = vectorizer.transform([test_message])
+
+    # Predict if the test message is spam or not
+    predicted_label = classifier.predict(test_features)[0]
+
+    print("Predicted Label:", predicted_label)
+
+except ValueError:
+    print("Unable to classify the message due to empty or invalid input.")
+
+
+
+
+output:-
+
+Predicted Label: spam

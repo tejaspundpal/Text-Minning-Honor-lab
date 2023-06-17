@@ -1,0 +1,34 @@
+Write a Python program to identify sentiment of given text
+
+
+from textblob import TextBlob
+
+# Example text
+text = "I love this movie! It's fantastic."
+
+# Create a TextBlob object
+blob = TextBlob(text)
+
+# Get the sentiment polarity (-1 to 1)
+polarity = blob.sentiment.polarity
+
+# Determine the sentiment label based on polarity
+if polarity > 0:
+    sentiment = "Positive"
+elif polarity < 0:
+    sentiment = "Negative"
+else:
+    sentiment = "Neutral"
+
+# Print the sentiment result
+print(f"Text: {text}")
+print(f"Sentiment: {sentiment}")
+print(f"Polarity: {polarity}")
+
+
+output:-
+
+
+Text: I love this movie! It's fantastic.
+Sentiment: Positive
+Polarity: 0.75

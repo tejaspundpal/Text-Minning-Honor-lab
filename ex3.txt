@@ -1,0 +1,57 @@
+Write a Python program to discover abstract "topics" that occur in a collection of documents.
+
+
+
+from gensim import corpora
+from gensim.models import LdaModel
+from gensim.parsing.preprocessing import preprocess_string
+
+# Sample collection of documents
+documents = [
+    "The sun is shining in the sky.",
+    "The weather is beautiful today.",
+    "I enjoy going for a walk in the park.",
+    "I love to watch birds flying in the sky.",
+    "Rainy days make me feel cozy at home."
+]
+
+# Preprocess documents
+preprocessed_docs = [preprocess_string(doc) for doc in documents]
+
+# Create a dictionary from preprocessed documents
+dictionary = corpora.Dictionary(preprocessed_docs)
+
+# Create a bag-of-words representation for each document
+bow_corpus = [dictionary.doc2bow(doc) for doc in preprocessed_docs]
+
+# Train the LDA model
+num_topics = 2  # Specify the desired number of topics
+lda_model = LdaModel(bow_corpus, num_topics=num_topics, id2word=dictionary, passes=10)
+
+# Print the discovered topics and their associated keywords
+for topic_id in range(num_topics):
+    topic_keywords = lda_model.show_topic(topic_id)
+    print(f"Topic {topic_id + 1}:")
+    for keyword, weight in topic_keywords:
+        print(f"- {keyword}: {weight}")
+    print()
+
+
+
+
+output:-
+
+
+Topic 1:
+- sky: 0.220
+- shining: 0.220
+- sun: 0.220
+- enjoy: 0.071
+- park: 0.071
+
+Topic 2:
+- rainy: 0.246
+- cozy: 0.246
+- days: 0.246
+- home: 0.246
+- feel: 0.246

@@ -1,0 +1,51 @@
+Write a Python program to demonstrate Basic NLP Tasks with NLTK.
+
+
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+from nltk.sentiment import SentimentIntensityAnalyzer
+
+try:
+    # Download NLTK resources (if not already downloaded)
+    nltk.download('punkt')
+    nltk.download('stopwords')
+    nltk.download('wordnet')
+    nltk.download('vader_lexicon')
+
+    # Example text
+    text = "NLTK is a powerful library for natural language processing. It provides easy-to-use interfaces for tasks like tokenization, stemming, lemmatization, and sentiment analysis."
+
+    # Tokenization
+    tokens = word_tokenize(text)
+    print("Tokens:", tokens)
+
+    # Stopword Removal
+    stopwords_list = stopwords.words('english')
+    filtered_tokens = [token for token in tokens if token.lower() not in stopwords_list]
+    print("Filtered Tokens:", filtered_tokens)
+
+    # Lemmatization
+    lemmatizer = WordNetLemmatizer()
+    lemmatized_tokens = [lemmatizer.lemmatize(token) for token in filtered_tokens]
+    print("Lemmatized Tokens:", lemmatized_tokens)
+
+    # Sentiment Analysis
+    analyzer = SentimentIntensityAnalyzer()
+    sentiment_scores = analyzer.polarity_scores(text)
+    print("Sentiment Scores:", sentiment_scores)
+
+except LookupError:
+    print("NLTK resources not found. Please make sure to download them using the nltk.download() function.")
+
+
+
+output:-
+
+
+Tokens: ['NLTK', 'is', 'a', 'powerful', 'library', 'for', 'natural', 'language', 'processing', '.', 'It', 'provides', 'easy-to-use', 'interfaces', 'for', 'tasks', 'like', 'tokenization', ',', 'stemming', ',', 'lemmatization', ',', 'and', 'sentiment', 'analysis', '.']
+Filtered Tokens: ['NLTK', 'powerful', 'library', 'natural', 'language', 'processing', '.', 'provides', 'easy-to-use', 'interfaces', 'tasks', 'like', 'tokenization', ',', 'stemming', ',', 'lemmatization', ',', 'sentiment', 'analysis', '.']
+Lemmatized Tokens: ['NLTK', 'powerful', 'library', 'natural', 'language', 'processing', '.', 'provides', 'easy-to-use', 'interface', 'task', 'like', 'tokenization', ',', 'stemming', ',', 'lemmatization', ',', 'sentiment', 'analysis', '.']
+Sentiment Scores: {'neg': 0.0, 'neu': 0.611, 'pos': 0.389, 'compound': 0.8126}
+

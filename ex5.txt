@@ -1,0 +1,30 @@
+Write a Python program to determine Similarity between Documents.
+
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+# Documents
+document1 = "This is the first document."
+document2 = "This document is the second document."
+document3 = "And this is the third one."
+document4 = "Is this the first document?"
+
+# Create the vectorizer
+vectorizer = TfidfVectorizer()
+
+# Vectorize the documents
+vectors = vectorizer.fit_transform([document1, document2, document3, document4])
+
+# Calculate the similarity between document1 and document2
+try:
+    similarity = cosine_similarity(vectors[0], vectors[1])[0][0]
+    print("Similarity between document1 and document2:", similarity)
+except IndexError:
+    print("Unable to calculate similarity due to empty or invalid documents.")
+
+
+
+output:-
+
+Similarity between document1 and document2: 0.6469256761082494

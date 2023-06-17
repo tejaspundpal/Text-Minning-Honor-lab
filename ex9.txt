@@ -1,0 +1,49 @@
+Write a Python program to identify Named Entities (NE) from document corpus. 
+
+
+
+import spacy
+
+try:
+    # Load the English language model in spaCy
+    nlp = spacy.load('en_core_web_sm')
+
+    # Example document corpus
+    documents = [
+        "Apple Inc. was founded in 1976 by Steve Jobs, Steve Wozniak, and Ronald Wayne. It is known for its innovative products like the iPhone and MacBook.",
+        "Microsoft Corporation, headquartered in Redmond, Washington, was founded by Bill Gates and Paul Allen in 1975. It develops software and hardware products.",
+        "Amazon.com, Inc. is a multinational technology company based in Seattle, Washington. It is known for its e-commerce and cloud computing services."
+    ]
+
+    # Process each document in the corpus
+    for document in documents:
+        # Apply NER (Named Entity Recognition) on the document
+        doc = nlp(document)
+
+        # Iterate over the identified named entities
+        for entity in doc.ents:
+            print(f"Entity: {entity.text}\t Label: {entity.label_}")
+
+except OSError as e:
+    print("Error:", str(e))
+    print("Please make sure to download the required language model using 'python -m spacy download en_core_web_sm'.")
+
+
+output:-
+
+Entity: Apple Inc.      Label: ORG
+Entity: 1976            Label: DATE
+Entity: Steve Jobs      Label: PERSON
+Entity: Steve Wozniak   Label: PERSON
+Entity: Ronald Wayne    Label: PERSON
+Entity: iPhone          Label: PRODUCT
+Entity: MacBook         Label: PRODUCT
+Entity: Microsoft Corporation    Label: ORG
+Entity: Redmond         Label: GPE
+Entity: Washington      Label: GPE
+Entity: Bill Gates      Label: PERSON
+Entity: Paul Allen      Label: PERSON
+Entity: 1975            Label: DATE
+Entity: Amazon.com, Inc.        Label: ORG
+Entity: Seattle         Label: GPE
+Entity: Washington      Label: GPE

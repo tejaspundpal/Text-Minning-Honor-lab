@@ -1,0 +1,27 @@
+Write a Python program to parse HTML document and find all hyperlinks in the Website. 
+
+
+import requests
+from bs4 import BeautifulSoup
+
+# Example website URL
+url = "https://example.com"
+
+# Send a GET request to the website
+response = requests.get(url)
+
+# Create a BeautifulSoup object from the HTML content
+soup = BeautifulSoup(response.content, "html.parser")
+
+# Find all <a> tags (hyperlinks) in the HTML
+hyperlinks = soup.find_all("a")
+
+# Extract the href attribute value from each hyperlink
+links = [link.get("href") for link in hyperlinks]
+
+# Print the extracted links
+for link in links:
+    print(link)
+
+
+

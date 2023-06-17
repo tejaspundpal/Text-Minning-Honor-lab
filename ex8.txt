@@ -1,0 +1,49 @@
+Write a Python program to cluster documents using clustering algorithms
+
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.cluster import KMeans
+
+try:
+    # Example documents
+    documents = [
+        "This is the first document.",
+        "This document is the second document.",
+        "And this is the third one.",
+        "Is this the first document?"
+    ]
+
+    if not documents:
+        raise ValueError("No documents provided.")
+
+    # Create the TF-IDF vectorizer
+    vectorizer = TfidfVectorizer()
+
+    # Transform the documents into TF-IDF feature vectors
+    features = vectorizer.fit_transform(documents)
+
+    # Perform K-means clustering
+    k = 2  # Number of clusters
+    kmeans = KMeans(n_clusters=k)
+    kmeans.fit(features)
+
+    # Get the cluster labels
+    labels = kmeans.labels_
+
+    # Print the clusters
+    for i, document in enumerate(documents):
+        cluster_label = labels[i]
+        print(f"Document: {document}\t Cluster: {cluster_label}")
+
+except ValueError as e:
+    print("Error:", str(e))
+
+
+output:-
+
+Document: This is the first document.             Cluster: 1
+Document: This document is the second document.   Cluster: 1
+Document: And this is the third one.              Cluster: 0
+Document: Is this the first document?             Cluster: 1
+
+

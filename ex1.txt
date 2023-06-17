@@ -1,0 +1,53 @@
+Write a Python program to demonstrate use of regular expression methods match(), search(), findall() and validate phone numbers, email address and social security number.
+
+
+
+import re
+
+def validate_phone_number(number):
+    pattern = r'^\d{3}-\d{3}-\d{4}$'
+    if re.match(pattern, number):
+        return True
+    return False
+
+def validate_email(email):
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    if re.match(pattern, email):
+        return True
+    return False
+
+def validate_social_security(ssn):
+    pattern = r'^\d{3}-\d{2}-\d{4}$'
+    if re.match(pattern, ssn):
+        return True
+    return False
+
+# Test phone number validation
+phone_number = '123-456-7890'
+if validate_phone_number(phone_number):
+    print(f'{phone_number} is a valid phone number.')
+else:
+    print(f'{phone_number} is not a valid phone number.')
+
+# Test email validation
+email = 'example@example.com'
+if validate_email(email):
+    print(f'{email} is a valid email address.')
+else:
+    print(f'{email} is not a valid email address.')
+
+# Test social security number validation
+ssn = '123-45-6789'
+if validate_social_security(ssn):
+    print(f'{ssn} is a valid social security number.')
+else:
+    print(f'{ssn} is not a valid social security number.')
+
+
+
+output:-
+
+123-456-7890 is a valid phone number.
+example@example.com is a valid email address.
+123-45-6789 is a valid social security number.
+
